@@ -32,7 +32,6 @@ ina_219_device* ina_219_device_open(const char * ina_219_device_filename, uint8_
 
 	res->shunt_on = 0;
 	res->bus_on = 0;
-	printf("successfull device initialization\n");
 
 	return res;
 
@@ -92,7 +91,7 @@ double ina_219_device_get_bus_voltage(ina_219_device *dev)
 	} while (!(res_p & 0b10u));
 
 	if (res_p & 0b01u) {
-		printf("Math Overflow\n");
+		printf("Math Overflow error\n");
 		return 0;
 	}
 
@@ -124,8 +123,6 @@ int32_t ina_219_device_calibrate(ina_219_device *dev, double shunt_resistor_resi
 {
 	double current_LSB = max_current / 32768;
 
-	printf("current_LSB: %.20lf\n",current_LSB );
-
 	unsigned degree = 1;
 
 	while ((int)current_LSB < 1 ) {
@@ -140,12 +137,10 @@ int32_t ina_219_device_calibrate(ina_219_device *dev, double shunt_resistor_resi
 	dev->shunt_LSB = INA_219_DEVICE_SHUNT_VOLTAGE_LSB;
 
 	current_LSB = 1 / (double) degree;
-	printf("current_LSB: %lf\n",current_LSB );
+
 	double calibration = 0.04096 / (shunt_resistor_resistance * current_LSB);
-	printf("calibration: %lf\n", calibration);
 	uint16_t cal_reg_value = (uint16_t) trunc(calibration);
 
-	printf("cal_reg: %x\n", cal_reg_value);
 	return ina_219_device_write_reg(dev, INA_219_DEVICE_CALIBRATION_REG, cal_reg_value);
 }
 
