@@ -1,11 +1,11 @@
 all: ina219 main
-	gcc -lm -o prog main.o ina219.o
+	gcc main.o ina219.o -lm -o prog 
 
 ina219: ina219.c ina219.h
-	gcc -lm -o ina219.o -c ina219.c
+	gcc ina219.c -lm -o ina219.o -c 
 
 main: main.c
-	gcc -o main.o -c main.c
+	gcc main.c -o main.o -c 
 
 clean:
 	rm *.o
