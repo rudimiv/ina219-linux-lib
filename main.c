@@ -6,13 +6,27 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define KEYS_PARSE_STRING "d:k:pcvta"
+#define KEYS_PARSE_STRING "d:k:pcvtah"
 #define KEY_ON 1
 #define KEY_OFF 0
 
 
 typedef uint8_t key_flag;
 
+void ina219_tool_print_help()
+{
+	printf("simple utilit for communication with one or more ina219 devices\n");
+	printf("ina219-tool [-v] [-c] [-p] [-a] [-k {koeff}] {-d {filename}} \
+{device_addr_1 [device_addr_2 ... [device_addr_n]]}\n\n");
+	printf("-v print voltage\n");
+	printf("-c print current\n");
+	printf("-p print power\n");
+	printf("-a print voltage, current and power\n");
+	printf("-k VALUE multiply current on the VALUE\n");
+	printf("-d FILENAME device file for access to i2c bus\n");
+	printf("device_addr_1 [device_addr_2 ... [device_addr_n]] ina219 device \
+i2c addresses. Usually 0x40, 0x41, 0x42, 0x43\n");
+}
 int main(int argc, char *argv[])
 {
 	int argc_p;
@@ -30,6 +44,10 @@ int main(int argc, char *argv[])
 
 	while ((opt = getopt(argc, argv, KEYS_PARSE_STRING)) != -1) {
 		switch (opt) {
+			case 'h':
+				ina219_tool_print_help();
+				return 0;
+				break;
 			case 'd':
 				strncpy(ina_219_device_filename, optarg, INA_219_DEVICE_FILENAME_SIZE);
 				break;

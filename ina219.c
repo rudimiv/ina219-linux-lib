@@ -98,7 +98,7 @@ double ina_219_device_get_bus_voltage(ina_219_device *dev)
 	}
 
 	res_p >>= 3;
-	//printf("bus voltage: %d\n", res_p * 4);
+
 	return (double)res_p / 250;
 }
 
@@ -140,12 +140,9 @@ int32_t ina_219_device_calibrate(ina_219_device *dev, double shunt_resistor_resi
 	dev->shunt_LSB = INA_219_DEVICE_SHUNT_VOLTAGE_LSB;
 
 	current_LSB = 1 / (double) degree;
-	//printf("current LSB: %lf alt: %lf\n", current_LSB / (degree * 10), 1/(double) degree);
 	double calibration = 0.04096 / (shunt_resistor_resistance * current_LSB);
 	uint16_t cal_reg_value = (uint16_t) trunc(calibration);
 
-	//cal_reg_value = 0x1000;
-	//printf("calibrate reg: %x %d\n", cal_reg_value, cal_reg_value);
 	return ina_219_device_write_reg(dev, INA_219_DEVICE_CALIBRATION_REG, cal_reg_value);
 }
 
@@ -161,7 +158,6 @@ int32_t ina_219_device_config(ina_219_device *dev, uint16_t conf_p)
 	else
 		dev->bus_on = 1;
 
-	//printf("config: %x %d\n", conf_p, conf_p);
 	return ina_219_device_write_reg(dev, INA_219_DEVICE_CONFIG_REG, conf_p);
 }
 
