@@ -41,7 +41,9 @@ open_i2c_error:
 	printf("open device error\n");
 	printf("device addr: %x\n", i2c_device_addr);
 	free(res);
-	exit(1);
+	
+
+	return NULL;
 }
 
 int ina_219_device_close(ina_219_device *dev)

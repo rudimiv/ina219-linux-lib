@@ -1,5 +1,5 @@
 all: ina219 main
-	gcc main.o ina219.o -lm -o prog 
+	gcc main.o ina219.o -lm -o ina219-tool 
 
 ina219: ina219.c ina219.h
 	gcc ina219.c -lm -o ina219.o -c 
