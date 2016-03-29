@@ -3,7 +3,7 @@
 
 Требуется пакет  libi2c-dev.
 
-ina219-tool [-v] [-c] [-p] [-a] [-k {koeff}] {-d {filename}} {device_addr_1 [device_addr_2 ... [device_addr_n]]}
+ina219-tool [-v] [-c] [-p] [-a] [-k {koeff}] [-s {sample_size = (1, 2, 4, 32, 128)}] {-d {filename}} {device_addr_1 [device_addr_2 ... [device_addr_n]]}
 
 Ключи:
 * -v вывод напряжения на шине
@@ -11,6 +11,7 @@ ina219-tool [-v] [-c] [-p] [-a] [-k {koeff}] {-d {filename}} {device_addr_1 [dev
 * -p вывод потребляемой энергии
 * -a вывод всех трех предыдущих
 * -k коэффициент усиления тока
+* -s размер выборки (варианты: 1, 2, 4, 32, 128). По умолчанию 128
 * -d {filename} - файл для доступа к шине
 
 Пример использования:
